@@ -2,6 +2,9 @@ import React from "react"
 import { View, Text, Button } from "react-native"
 
 class HomePage extends React.Component {
+  static navigationOptions = {
+    title: 'HomePage',
+  }
   componentDidMount() {
     console.log('HomePage componentDidMount')
   }
@@ -15,7 +18,7 @@ class HomePage extends React.Component {
         <Text>Home 首页</Text>
         <Button title='跳转page1' 
           onPress={() => {
-            navigation.navigate('Page1')
+            navigation.navigate('Page1',{id: '001', title: 'hello world'})
           }}
         ></Button>
         <Button title='跳转page2' 

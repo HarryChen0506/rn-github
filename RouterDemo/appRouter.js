@@ -12,6 +12,19 @@ const AppNavigator = createStackNavigator(
     Page1: { screen: Page1 },
     Page2: { screen: Page2 },
     Page3: { screen: Page3 },
+  },
+  {
+    initialRouteName: 'Home',
+    /* The header config from HomeScreen is now here */
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#f4511e',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    },
   }
 )
 export default createAppContainer(AppNavigator)
