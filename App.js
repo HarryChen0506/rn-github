@@ -10,7 +10,6 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import Demo from './Demo'
 import AppRouter from './RouterDemo/appRouter'
-
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
@@ -31,9 +30,12 @@ type Props = {};
 // }
 
 export default class App extends Component<Props> {
+  handleNavigationChange = (prevState, newState, action) => {
+    // console.log('handleNavigationChange', prevState, newState, action)
+  }
   render() {
     return (
-      <AppRouter></AppRouter>
+      <AppRouter onNavigationStateChange={this.handleNavigationChange}></AppRouter>
     )
   }
 }

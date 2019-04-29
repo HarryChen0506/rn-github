@@ -5,6 +5,7 @@ import HomePage from './HomePage'
 import Page1 from './Page1'
 import Page2 from './Page2'
 import Page3 from './Page3'
+import AppTopTabNavigator from './appTopTabNavigator'
 
 const AppNavigator = createStackNavigator(
   {
@@ -12,6 +13,7 @@ const AppNavigator = createStackNavigator(
     Page1: { screen: Page1 },
     Page2: { screen: Page2 },
     Page3: { screen: Page3 },
+    Top: { screen: AppTopTabNavigator }
   },
   {
     initialRouteName: 'Home',

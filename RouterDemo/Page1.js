@@ -14,20 +14,32 @@ class Page1 extends React.Component {
         fontWeight: 'bold',
         color: 'blue'
       },
+      headerBackTitle: `返回`,
       headerRight: (
         <Button
-          onPress={() => alert('This is a button!')}
-          title="Info"
+          onPress={() => navigation.getParam('increaseCount')(2)}
+          title="Add"
           color="red"
         />
       ),
     }
   }
+  state = {
+    count: 0
+  }
   componentDidMount() {
     console.log('Page1 componentDidMount')
+    this.props.navigation.setParams({
+      increaseCount: this._increaseCount
+    })
   }
   componentWillUnmount() {
     console.log('Page1 componentWillUnmount')
+  }
+  _increaseCount = (step = 1) => {
+    this.setState({
+      count: this.state.count + step
+    })
   }
   render() {
     const {navigation} = this.props
@@ -37,6 +49,7 @@ class Page1 extends React.Component {
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Text>Page1页</Text>
         <Text>id: {id} - {name}</Text>
+        <Text>count: {this.state.count}</Text>
         <NavigationEvents
           onWillFocus={payload => console.log('will focus',payload)}
           onDidFocus={payload => console.log('did focus',payload)}

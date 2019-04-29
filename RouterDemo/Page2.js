@@ -2,6 +2,9 @@ import React from "react"
 import { View, Text } from "react-native"
 
 class Page2 extends React.Component {
+  static navigationOptions = {
+    
+  }
   componentDidMount() {
     console.log('Page2 componentDidMount')
   }
