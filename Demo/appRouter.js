@@ -16,7 +16,7 @@ const AppNavigator = createStackNavigator(
     Top: { screen: AppTopTabNavigator }
   },
   {
-    initialRouteName: 'Page2',
+    initialRouteName: 'Home',
     /* The header config from HomeScreen is now here */
     defaultNavigationOptions: {
       headerStyle: {
