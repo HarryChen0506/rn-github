@@ -1,5 +1,5 @@
 import React from "react"
-import { StyleSheet, View, Text, FlatList, TouchableHighlight, ActivityIndicator } from "react-native"
+import { StyleSheet, View, Text, FlatList, SwipeableFlatList, TouchableHighlight, ActivityIndicator } from "react-native"
 const CITY_LIST = [
   '北京',
   '上海',
@@ -17,7 +17,7 @@ const CITY_LIST = [
 ]
 class Page2 extends React.Component {
   static navigationOptions = {
-    
+
   }
   state = {
     refreshing: false,
@@ -51,14 +51,13 @@ class Page2 extends React.Component {
   }
   _loadMore = () => {
     setTimeout(() => {
-      console.log('_onEndReached')
       this.setState({
         list: this.state.list.concat(CITY_LIST.slice(0, 3)),
         refreshing: false,
       })
     }, 2000)
   }
-  _renderItem = ({item, separators}) => {
+  _renderItem = ({ item, separators }) => {
     return (
       <TouchableHighlight
         onPress={this._onPressButton}
@@ -78,19 +77,33 @@ class Page2 extends React.Component {
   }
   genIndicator() {
     return <View style={styles.indicatorContainer}>
-        <ActivityIndicator
-            style={styles.indicator}
-            size='large'
-            tintColor='red'
-            animating={true}
-        />
-        <Text>正在加载更多</Text>
+      <ActivityIndicator
+        style={styles.indicator}
+        size='large'
+        tintColor='red'
+        animating={true}
+      />
+      <Text>正在加载更多</Text>
     </View>
+  }
+  genQuickActions() {
+    return (
+      <View style={styles.quickContainer}>
+        <TouchableHighlight
+          onPress={() => {
+            alert("确认删除")
+          }}>
+          <View style={styles.quick}>
+            <Text style={styles.text}>删除</Text>
+          </View>
+        </TouchableHighlight>
+      </View>
+    )
   }
   render() {
     return (
       <View style={styles.pageWrap}>
-        <FlatList
+        <SwipeableFlatList
           style={styles.flatWrap}
           data={this.state.list}
           renderItem={this._renderItem}
@@ -101,6 +114,8 @@ class Page2 extends React.Component {
           onEndReached={this._onEndReached}
           onEndReachedThreshold={0.1}
           ListFooterComponent={this.genIndicator}
+          maxSwipeDistance={100}
+          renderQuickActions={() => this.genQuickActions()}
         />
       </View>
     )
@@ -108,7 +123,7 @@ class Page2 extends React.Component {
 }
 const styles = StyleSheet.create({
   pageWrap: {
-    flex: 1, 
+    flex: 1,
   },
   flatWrap: {
     paddingLeft: 20,
@@ -131,6 +146,20 @@ const styles = StyleSheet.create({
   indicator: {
     color: 'red',
     margin: 10
+  },
+  quickContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  quick: {
+    backgroundColor: 'red',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+    paddingHorizontal: 10,
+    width: 100
   }
 })
 export default Page2
