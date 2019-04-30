@@ -2,7 +2,6 @@ import React from "react"
 import { View, Text } from "react-native"
 import {
   createBottomTabNavigator,
-  createAppContainer
 } from "react-navigation"
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -66,7 +65,12 @@ const DynamicTabNavigator = createBottomTabNavigator(
         ),
       }
     },
+  }, {
+    initialRouteName: 'PopularPage',
+    navigationOptions: {
+      header: null,
+    }
   }
 )
 
-export default createAppContainer(DynamicTabNavigator)
+export default DynamicTabNavigator
