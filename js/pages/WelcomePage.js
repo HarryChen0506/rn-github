@@ -1,6 +1,6 @@
 import React from "react"
 import { StyleSheet, View, Text, Button } from "react-native"
-import NavigationUtil from '../utils/NavigationUtil'
+import NavigationUtil, {ROOT_NAVIGATION} from '../utils/NavigationUtil'
 export default class WelcomePage extends React.Component {
   static navigationOptions = {
     title: 'WelcomePage',
@@ -10,11 +10,11 @@ export default class WelcomePage extends React.Component {
 
   componentDidMount() {
     const {navigation} = this.props
-    NavigationUtil.setNavigation(navigation, 'rootNavigation')
-    
+    NavigationUtil.setNavigation(navigation, ROOT_NAVIGATION)
+    // console.log('WelcomePage', navigation)
     this.timerId = setTimeout(() => {
       NavigationUtil.resetHomePage()
-    }, 2000)
+    }, 1000)
   }
 
   render() {

@@ -1,6 +1,11 @@
 import React from "react"
 import { StyleSheet, View, Text } from "react-native"
+import HomeTopTabNavigator from '../../navigators/HomeTopTabNavigator'
+import {
+  createAppContainer,
+} from "react-navigation"
 
+const HomeTopTab =  createAppContainer(HomeTopTabNavigator)
 export default class PopularPage extends React.Component {
   static navigationOptions = {
     title: 'PopularPage',
@@ -10,7 +15,7 @@ export default class PopularPage extends React.Component {
     const {navigation} = this.props
     return (
       <View style={styles.container}>
-        <Text>流行页</Text>
+        <HomeTopTab />
       </View>
     )
   }
@@ -19,8 +24,9 @@ export default class PopularPage extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginTop: 30,
+    // justifyContent: 'center',
+    // alignItems: 'center',
     backgroundColor: 'red',
   },
 })

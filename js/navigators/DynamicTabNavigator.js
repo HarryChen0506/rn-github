@@ -2,19 +2,21 @@ import React from "react"
 import { View, Text } from "react-native"
 import {
   createBottomTabNavigator,
+  createAppContainer
 } from "react-navigation"
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Entypo from 'react-native-vector-icons/Entypo'
-import PopularPage from '../pages/Main/PopularPage'
+// import PopularPage from '../pages/Main/PopularPage'
 import TrendingPage from '../pages/Main/TrendingPage'
 import FavoritePage from '../pages/Main/FavoritePage'
 import MyPage from '../pages/Main/MyPage'
+import HomeTopTabNavigator from './HomeTopTabNavigator'
 
 const DynamicTabNavigator = createBottomTabNavigator(
   {
     PopularPage: {
-      screen: PopularPage,
+      screen: HomeTopTabNavigator,
       navigationOptions: {
         tabBarLabel: "最热",
         tabBarIcon: ({ tintColor, focused }) => (
@@ -69,7 +71,7 @@ const DynamicTabNavigator = createBottomTabNavigator(
     initialRouteName: 'PopularPage',
     navigationOptions: {
       header: null,
-    }
+    },
   }
 )
 
