@@ -1,0 +1,14 @@
+{
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./"],
+      "alias": {
+        "@tests": "./__tests__",
+        "@pages": "./js/pages",
+        "@utils": "./js/utils",
+        "@navigators": "./js/navigators",
+      },
+      "extensions": [".js", ".ios.js", ".android.js"]
+    }]
+  ]
+}

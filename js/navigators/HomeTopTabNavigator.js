@@ -1,7 +1,7 @@
 import React from "react"
 import { StyleSheet, View, Text } from "react-native"
 import {createMaterialTopTabNavigator} from "react-navigation"
-import NavigationUtil, {ROOT_NAVIGATION, TOP_TAB_NAVIGATION, BOTTOM_TAB_NAVIGATION} from '../utils/NavigationUtil'
+import NavigationUtil, {ROOT_NAVIGATION, TOP_TAB_NAVIGATION, BOTTOM_TAB_NAVIGATION} from '@utils/NavigationUtil'
 
 class TabContent extends React.Component {
   componentDidMount() {

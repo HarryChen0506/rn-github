@@ -7,10 +7,10 @@ import {
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Entypo from 'react-native-vector-icons/Entypo'
-// import PopularPage from '../pages/Main/PopularPage'
-import TrendingPage from '../pages/Main/TrendingPage'
-import FavoritePage from '../pages/Main/FavoritePage'
-import MyPage from '../pages/Main/MyPage'
+// import PopularPage from '@pages/Main/PopularPage'
+import TrendingPage from '@pages/Main/TrendingPage'
+import FavoritePage from '@pages/Main/FavoritePage'
+import MyPage from '@pages/Main/MyPage'
 import HomeTopTabNavigator from './HomeTopTabNavigator'
 
 const DynamicTabNavigator = createBottomTabNavigator(

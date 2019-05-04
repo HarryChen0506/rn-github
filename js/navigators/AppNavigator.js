@@ -5,8 +5,8 @@ import {
   createStackNavigator, 
   createAppContainer 
 } from "react-navigation"
-import WelcomePage from '../pages/WelcomePage'
-import DetailPage from '../pages/DetailPage'
+import WelcomePage from '@pages/WelcomePage'
+import DetailPage from '@pages/DetailPage'
 import DynamicTabNavigator from './DynamicTabNavigator'
 
 const InitNavigator = createStackNavigator(
