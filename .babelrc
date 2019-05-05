@@ -8,6 +8,7 @@
         "@utils": "./js/utils",
         "@navigators": "./js/navigators",
         "@model": "./js/model",
+        "@services": "./js/services",
       },
       "extensions": [".js", ".ios.js", ".android.js"]
     }]

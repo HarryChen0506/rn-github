@@ -14,8 +14,6 @@ import WelcomePage from '@pages/WelcomePage'
 import DetailPage from '@pages/DetailPage'
 import DynamicTabNavigator from './DynamicTabNavigator'
 
-export const rootCom = 'Init' //设置根路由
-
 const InitNavigator = createStackNavigator(
   {
     WelcomePage: {
