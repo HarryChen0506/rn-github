@@ -8,6 +8,9 @@ class MyPage extends React.Component {
     title: 'MyPage',
     header: null,
   }
+  componentDidMount() {
+    console.log('myPage props', this.props)
+  }
   render() {
     const { navigation, counter } = this.props
     return (
