@@ -1,7 +1,6 @@
 import qs from 'qs'
 // import pathToRegexp from 'path-to-regexp'
 
-
 const defaultInit = {
   cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
   credentials: 'include', // include, same-origin, *omit
