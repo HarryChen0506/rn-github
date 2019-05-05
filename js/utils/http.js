@@ -33,15 +33,25 @@ export const request = async (options = {}) => {
 }
 
 function fetchResult(request) {
+  let fetchResponse
   try {
     return request.then(response => {
       // console.log('response', response)
+      fetchResponse = response
       if (response.status == 200) {
+        // response.json()同样是一个Promise
         let resultJson = response.json()
         return resultJson
       } else {
         throw response
       }
+    }).then(res => {
+      return Promise.resolve({
+        status: fetchResponse.status,
+        ok: fetchResponse.ok,
+        result: res,
+        date: new Date(fetchResponse.headers.map['date']).getTime(),
+      })
     }).catch(error => {
       if (error.json) {
         return error.json()
