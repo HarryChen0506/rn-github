@@ -10,7 +10,9 @@ export default class TrendingPgae extends React.Component {
     title: 'TrendingPgae',
     header:null, 
   }
-  netCache = new NetCache()
+  netCache = new NetCache({
+    mode: 'NET_FIRST'
+  })
   componentDidMount() {
     // 注册工具路由
     const {navigation} = this.props

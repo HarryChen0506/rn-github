@@ -9,6 +9,7 @@
         "@navigators": "./js/navigators",
         "@model": "./js/model",
         "@services": "./js/services",
+        "@mock": "./js/mock",
       },
       "extensions": [".js", ".ios.js", ".android.js"]
     }]

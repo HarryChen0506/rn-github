@@ -1,18 +1,22 @@
+/**
+ * 已废弃
+ */
+
 import React from "react"
 import { StyleSheet, View, Text } from "react-native"
-import HomeTopTabNavigator from '../../navigators/HomeTopTabNavigator'
+import HomeTopTabNavigator from './HomeTopTabNavigator'
 import {
   createAppContainer,
 } from "react-navigation"
 
-const HomeTopTab =  createAppContainer(HomeTopTabNavigator)
+const HomeTopTab = createAppContainer(HomeTopTabNavigator)
 export default class PopularPage extends React.Component {
   static navigationOptions = {
     title: 'PopularPage',
-    header:null, 
+    header: null,
   }
   render() {
-    const {navigation} = this.props
+    const { navigation } = this.props
     return (
       <View style={styles.container}>
         <HomeTopTab />

@@ -11,7 +11,7 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import TrendingPage from '@pages/Main/TrendingPage'
 import FavoritePage from '@pages/Main/FavoritePage'
 import MyPage from '@pages/Main/MyPage'
-import HomeTopTabNavigator from './HomeTopTabNavigator'
+import HomeTopTabNavigator from '@pages/Main/PopularPage/HomeTopTabNavigator'
 
 const DynamicTabNavigator = createBottomTabNavigator(
   {

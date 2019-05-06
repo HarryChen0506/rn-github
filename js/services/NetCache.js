@@ -22,14 +22,16 @@ class NetCache {
   }
   getData(url) {
     if (this.mode === 'LOCAL_FIRST') {
-      return this._fetchLocalData(url)
+      return this._fetchLocalFirstData(url)
+    } else if (this.mode === 'NET_FIRST') {
+      return this._fetchNetFirstData(url)
     }
   }
   removeData(url) {
     this._removeLocalData(url)
   }
   // 优先本地
-  async _fetchLocalData(url) {
+  async _fetchLocalFirstData(url) {
     try {
       // console.log('获取本地数据', res)
       const res = await this._getLocalData(url)
@@ -43,6 +45,24 @@ class NetCache {
       return Promise.resolve(fetchData)
     } catch (error) {
       return Promise.reject(error)
+    }
+  }
+  // 优先网络
+  async _fetchNetFirstData(url) {
+    try {
+      const fetchData = await this._getNetData(url)
+      // console.log('获取网络数据', fetchData)
+      this._saveLocalData(url, fetchData)
+      return Promise.resolve(fetchData)
+    } catch (error) {
+      console.log('net error', error)
+      const res = await this._getLocalData(url)
+      if (res && this._checkTimestampValid(res)) {
+        // console.log('本地数据有效', res)
+        return Promise.resolve(res.data)
+      } else {
+        return Promise.reject(error)
+      }
     }
   }
   // 保存本地数据
