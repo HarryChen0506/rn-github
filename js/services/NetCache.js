@@ -78,6 +78,10 @@ class NetCache {
   // 校验本地是否过期
   _checkTimestampValid(res = {}) {
     const storageTime = res[this.timestamp_key]
+    if (isNaN(this.maxAge) || this.maxAge < 0) {
+      console.error('_checkTimestampValid maxAge must be a number and greater than 0')
+      return false
+    }
     const expires = storageTime + (this.maxAge || 0)
     if (Date.now() > expires) {
       // console.log('过期',Date.now(), expires)

@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Button } from "react-native"
 import NavigationUtil, {BOTTOM_TAB_NAVIGATION} from '../../utils/NavigationUtil'
 import {request} from '@utils/http'
 import NetCache from '@services/NetCache'
+import apiManage from '@services/apiManage'
 
 export default class TrendingPgae extends React.Component {
   static navigationOptions = {
@@ -52,6 +53,9 @@ export default class TrendingPgae extends React.Component {
         }}></Button>
         <Button title='缓存 清除' onPress={() => {
           this.handleRemoveCache()
+        }}></Button>
+        <Button title='获取api' onPress={() => {
+          console.log(apiManage.getApi({keyInfo: 'popular.search'}))
         }}></Button>
       </View>
     )
