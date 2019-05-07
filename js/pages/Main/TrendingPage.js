@@ -4,6 +4,7 @@ import NavigationUtil, {BOTTOM_TAB_NAVIGATION} from '../../utils/NavigationUtil'
 import {request} from '@utils/http'
 import NetCache from '@services/NetCache'
 import apiManage from '@services/apiManage'
+import util from '@utils/util'
 
 export default class TrendingPgae extends React.Component {
   static navigationOptions = {
@@ -29,6 +30,19 @@ export default class TrendingPgae extends React.Component {
       console.log('res', res)
     })
   }
+  handleFormatUrlTest = () => {
+    const api = 'https://www.baidu.com/demo/:id'
+    const params = {
+      id: 123
+    }
+    const query = {
+      name: 123,
+      foo: 'harry',
+      list: ['h', 'e']
+    }
+    let url = util.formatUrl(api, {params, query})
+    console.log(url)
+  }
   handleCacheTest = () => {
     const url = 'https://api.github.com/search/repositories?q=java'
     this.netCache.getData(url).then(res => {
@@ -49,6 +63,9 @@ export default class TrendingPgae extends React.Component {
         <Text>趋势页</Text>
         <Button title='fetch 测试' onPress={() => {
           this.handleFetchTest()
+        }}></Button>
+        <Button title='formatUrl 测试' onPress={() => {
+          this.handleFormatUrlTest()
         }}></Button>
         <Button title='缓存 测试' onPress={() => {
           this.handleCacheTest()
