@@ -1,9 +1,10 @@
 import React from "react"
-import { StyleSheet, View, Text, FlatList, TouchableHighlight, ActivityIndicator } from "react-native"
+import { StyleSheet, View, Text, FlatList, ActivityIndicator } from "react-native"
 import NavigationUtil, { TOP_TAB_NAVIGATION } from '@utils/NavigationUtil'
 import { connect } from "react-redux"
 import actions from "@model/actions"
 import popular_data from '@mock/popular'
+import ListItem from './ListItem'
 
 const CITY_LIST = [
   '北京',
@@ -26,21 +27,15 @@ class TabContent extends React.Component {
     const { navigation } = this.props
     NavigationUtil.setNavigation(navigation, TOP_TAB_NAVIGATION)
   }
-  _onPressButton = () => {
-    console.log('_onPressButton')
+  _onPressItem = (item) => {
+    console.log('_onPressButton item', item)
   }
   _renderItem = ({item}) => {
     return (
-      <TouchableHighlight
-        onPress={this._onPressButton}
-        style={styles.itemWrap}
-        activeOpacity={0.9}
-        underlayColor='#f1f1f1'
-      >
-        <View>
-          <Text>{item.full_name}</Text>
-        </View>
-      </TouchableHighlight>
+      <ListItem 
+        item={item} 
+        onPressItem={this._onPressItem}
+      />
     )
   }
   _genIndicator() {
@@ -98,13 +93,6 @@ const styles = StyleSheet.create({
   },
   flatWrap: {
     flex: 1,
-  },
-  itemWrap: {
-    backgroundColor: '#f9f9f9',
-    marginBottom: 20,
-    height: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   indicatorContainer: {
     alignItems: "center",
