@@ -1,5 +1,5 @@
 import React from "react"
-import { StyleSheet, View, Text, Button } from "react-native"
+import { StyleSheet, View, Text, Button, StatusBar } from "react-native"
 import { connect } from "react-redux"
 import actions from "@model/actions"
 
@@ -9,7 +9,7 @@ class MyPage extends React.Component {
     header: null,
   }
   componentDidMount() {
-    console.log('myPage props', this.props)
+    // console.log('myPage props', this.props)
   }
   render() {
     const { navigation, counter } = this.props
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f0f0f0',
+    backgroundColor: 'red',
   },
 })
 

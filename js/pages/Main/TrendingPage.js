@@ -1,22 +1,23 @@
 import React from "react"
 import { StyleSheet, View, Text, Button } from "react-native"
-import NavigationUtil, {BOTTOM_TAB_NAVIGATION} from '../../utils/NavigationUtil'
-import {request} from '@utils/http'
+import NavigationUtil, { BOTTOM_TAB_NAVIGATION } from '../../utils/NavigationUtil'
+import { request } from '@utils/http'
 import NetCache from '@services/NetCache'
 import apiManage from '@services/apiManage'
 import util from '@utils/util'
+import GitHubTrending from 'GitHubTrending'
 
 export default class TrendingPgae extends React.Component {
   static navigationOptions = {
     title: 'TrendingPgae',
-    header:null, 
+    header: null,
   }
   netCache = new NetCache({
     mode: 'NET_FIRST'
   })
   componentDidMount() {
     // 注册工具路由
-    const {navigation} = this.props
+    const { navigation } = this.props
     NavigationUtil.setNavigation(navigation, BOTTOM_TAB_NAVIGATION)
   }
   handleFetchTest = () => {
@@ -40,7 +41,7 @@ export default class TrendingPgae extends React.Component {
       foo: 'harry',
       list: ['h', 'e']
     }
-    let url = util.formatUrl(api, {params, query})
+    let url = util.formatUrl(api, { params, query })
     console.log(url)
   }
   handleCacheTest = () => {
@@ -56,8 +57,18 @@ export default class TrendingPgae extends React.Component {
     const url = 'https://api.github.com/search/repositories?q=java'
     this.netCache.removeData(url)
   }
+  handleGetTrendingData = () => {
+    const url = 'https://github.com/trending'
+    console.log('document', window.document)
+    new GitHubTrending().fetchTrending(url)
+      .then((data) => {
+        console.log('trending daga', data)
+      }).catch((error) => {
+        console.log(error)
+      });
+  }
   render() {
-    const {navigation} = this.props
+    const { navigation } = this.props
     return (
       <View style={styles.container}>
         <Text>趋势页</Text>
@@ -74,8 +85,9 @@ export default class TrendingPgae extends React.Component {
           this.handleRemoveCache()
         }}></Button>
         <Button title='获取api' onPress={() => {
-          console.log(apiManage.getApi({keyInfo: 'popular.search'}))
+          console.log(apiManage.getApi({ keyInfo: 'popular.search' }))
         }}></Button>
+        <Button title='获取trending数据' onPress={this.handleGetTrendingData}></Button>
       </View>
     )
   }
