@@ -1,7 +1,5 @@
 import React from "react"
-import { View, Text } from "react-native"
 import { createMaterialTopTabNavigator } from "react-navigation"
-import NavigationUtil, { ROOT_NAVIGATION, TOP_TAB_NAVIGATION, BOTTOM_TAB_NAVIGATION } from '@utils/NavigationUtil'
 import TabContent from './TabContent'
 const tabNames = ['Java', 'Android', 'Ios', 'React', 'React Native', 'PHP', 'Python']
 
@@ -28,7 +26,7 @@ const HomeTopTabNavigator = createMaterialTopTabNavigator(
       upperCaseLabel: false,
       scrollEnabled: true,
       style: {
-        marginTop: 30,
+        // marginTop: 0,
       },
       tabStyle: {
         minWidth: 50,

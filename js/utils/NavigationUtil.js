@@ -1,24 +1,62 @@
+
+import {NavigationActions} from 'react-navigation'
+
 export const ROOT_NAVIGATION = 'rootNavigation'
 export const BOTTOM_TAB_NAVIGATION = 'bottomTabNavigation'
 export const TOP_TAB_NAVIGATION = 'topTabNavigation'
-export default class NavigationUtil {
-  static setNavigation(navigation, type) {
-    switch(type) {
+
+export const ROOT_NAVIGATOR = 'rootNavigator'
+export const BOTTOM_TAB_NAVIGATOR= 'bottomTabNavigator'
+export const TOP_TAB_NAVIGATOR = 'topTabNavigator'
+
+class NavigationUtil {
+  constructor() {}
+  navigations = {} // 具体路由, 组件的props.navigation获取
+  navigators = {} // 通过createMaterialTopTabNavigator等创建的navigator
+  setNavigator(navigatorName, navigator) {
+    switch(navigatorName) {
       case ROOT_NAVIGATION:
-        NavigationUtil[ROOT_NAVIGATION] = navigation
+        this.navigators[ROOT_NAVIGATION] = navigator
         break
       case BOTTOM_TAB_NAVIGATION:
-        NavigationUtil[BOTTOM_TAB_NAVIGATION] = navigation
+        this.navigators[BOTTOM_TAB_NAVIGATION] = navigator
         break
       case TOP_TAB_NAVIGATION:
-        NavigationUtil[TOP_TAB_NAVIGATION] = navigation
+        this.navigators[TOP_TAB_NAVIGATION] = navigator
         break
       default:
-        NavigationUtil[ROOT_NAVIGATION] = navigation
+        this.navigators[navigatorName] = navigator
     }
   }
-  static resetHomePage(params = {}, routeName) {
-    const navigation = params.navigation || NavigationUtil[ROOT_NAVIGATION]
+  navigatorToPage(navigatorName, {routeName, params}) {
+    const navigator = this.navigators[navigatorName]
+    if (!navigator) {
+      console.error('NavigationUtil navigator can not be null!')
+      return
+    }
+    this.navigators[navigatorName].dispatch(
+      NavigationActions.navigate({ routeName, params })
+    )
+  }
+
+  
+  setNavigation(navigation, type) {
+    switch(type) {
+      case ROOT_NAVIGATION:
+        this.navigations[ROOT_NAVIGATION] = navigation
+        break
+      case BOTTOM_TAB_NAVIGATION:
+        this.navigations[BOTTOM_TAB_NAVIGATION] = navigation
+        break
+      case TOP_TAB_NAVIGATION:
+        this.navigations[TOP_TAB_NAVIGATION] = navigation
+        break
+      default:
+        this.navigations[ROOT_NAVIGATION] = navigation
+    }
+  }
+  resetHomePage(params = {}, routeName) {
+    const navigation = params.navigation || this.navigations[ROOT_NAVIGATION]
     if (navigation) {
       navigation.navigate(routeName || 'Main')
     } else {
@@ -30,7 +68,7 @@ export default class NavigationUtil {
    * @param {*} param0 当前导航器
    * @param {*} routeName 
    */
-  static goPage({navigation}, routeName) {
+  goPage({navigation}, routeName) {
     if (navigation) {
       navigation.navigate(routeName)
     } else {
@@ -42,14 +80,15 @@ export default class NavigationUtil {
    * @param {*} navigationName 指定导航器
    * @param {*} routeName 路由名
    */
-  static goNavigationPage(navigationName, routeName) {
-    const navigation = NavigationUtil[navigationName]
+  goNavigationPage(navigationName, routeName) {
+    const navigation = this.navigations[navigationName]
     if (!navigation) {
-      console.error('NavigationUtil navigationName canot be null!')
+      console.error('NavigationUtil navigationName can not be null!')
       return
     } else {
       navigation.navigate(routeName)
     }
   }
-
 }
+
+export default new NavigationUtil()

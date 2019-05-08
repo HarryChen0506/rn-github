@@ -7,6 +7,11 @@ export default class FavoritePage extends React.Component {
     title: 'FavoritePage',
     header: null,
   }
+  componentDidMount() {
+    console.log('FavoritePage componentDidMount', this.props)
+    const { navigation } = this.props
+    NavigationUtil.setNavigation(navigation, BOTTOM_TAB_NAVIGATION)
+  }
   render() {
     const { navigation } = this.props
     return (
@@ -23,7 +28,13 @@ export default class FavoritePage extends React.Component {
           <Text
             style={styles.text}
             onPress={() => {
-              NavigationUtil.goNavigationPage(TOP_TAB_NAVIGATION, 'tab2')
+              // console.log('NavigationUtil', NavigationUtil, NavigationUtil[TOP_TAB_NAVIGATION])
+              console.log('global',global)
+              NavigationUtil.goNavigationPage(BOTTOM_TAB_NAVIGATION, 'PopularPage')
+              // global.navigatorRef.dispatch(
+              //   NavigationActions.navigate({ routeName: 'tab2' })
+              // );
+              // NavigationUtil.goNavigationPage(TOP_TAB_NAVIGATION, 'tab6')
             }}>跳转到topTab2页</Text>
           <Text
             style={styles.text}
