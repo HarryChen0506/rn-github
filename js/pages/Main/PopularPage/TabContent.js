@@ -1,6 +1,5 @@
 import React from "react"
 import { StyleSheet, View, Text, FlatList, ActivityIndicator } from "react-native"
-import NavigationUtil, { TOP_TAB_NAVIGATION, ROOT_NAVIGATION, BOTTOM_TAB_NAVIGATOR } from '@utils/NavigationUtil'
 import { connect } from "react-redux"
 import actions from "@model/actions"
 import popular_data from '@mock/popular'
@@ -24,9 +23,6 @@ const CITY_LIST = [
 ]
 class TabContent extends React.Component {
   componentDidMount() {
-    // 注册工具路由
-    const { navigation } = this.props
-    NavigationUtil.setNavigation(navigation, TOP_TAB_NAVIGATION)
   }
   _onPressItem = (item) => {
     console.log('_onPressButton item', item)
@@ -61,19 +57,6 @@ class TabContent extends React.Component {
     const { item, counter } = this.props
     return (
       <View style={styles.container}>
-        <Text
-            onPress={() => {
-              // console.log('NavigationUtil', NavigationUtil, NavigationUtil[TOP_TAB_NAVIGATION])
-              NavigationUtil.navigatorToPage(BOTTOM_TAB_NAVIGATOR, { routeName: 'tab6' })
-              
-              // NavigationUtil.goNavigationPage(TOP_TAB_NAVIGATION, 'tab6')
-            }}>跳转到topTab6页</Text>
-        <Text
-          style={styles.text}
-          onPress={() => {
-            // NavigationUtil.goNavigationPage(ROOT_NAVIGATION, 'DetailPage')
-            NavigationUtil.goNavigationPage(ROOT_NAVIGATION, 'DetailPage')
-          }}>跳转到详情页</Text>
         <FlatList
           style={styles.flatWrap}
           data={popular_data.items}

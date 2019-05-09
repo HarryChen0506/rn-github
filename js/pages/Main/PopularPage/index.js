@@ -8,7 +8,7 @@ import HomeTopTabNavigator from './HomeTopTabNavigator'
 import {
   createAppContainer,
 } from "react-navigation"
-import navigationUtil, { TOP_TAB_NAVIGATION, ROOT_NAVIGATION, BOTTOM_TAB_NAVIGATOR } from '@utils/NavigationUtil'
+import navigationUtil, { HOME_TOP_TAB_NAVIGATOR } from '@utils/NavigationUtil'
 
 const HomeTopTab = createAppContainer(HomeTopTabNavigator)
 export default class PopularPage extends React.Component {
@@ -21,8 +21,8 @@ export default class PopularPage extends React.Component {
     return (
       <View style={styles.container}>
         <HomeTopTab ref={navigatorRef => {
-          console.log('navigatorRef', navigatorRef)
-          navigationUtil.setNavigator(BOTTOM_TAB_NAVIGATOR, navigatorRef)
+          // console.log('navigatorRef', navigatorRef)
+          navigationUtil.setNavigator(HOME_TOP_TAB_NAVIGATOR, navigatorRef)
         }}/>
       </View>
     )

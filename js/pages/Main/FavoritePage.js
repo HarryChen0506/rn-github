@@ -1,6 +1,6 @@
 import React from "react"
 import { StyleSheet, View, Text, StatusBar, SafeAreaView } from "react-native"
-import NavigationUtil, { ROOT_NAVIGATION, TOP_TAB_NAVIGATION, BOTTOM_TAB_NAVIGATION } from '@utils/NavigationUtil'
+import navigationUtil, { HOME_TOP_TAB_NAVIGATOR, BOTTOM_TAB_NAVIGATION } from '@utils/NavigationUtil'
 
 export default class FavoritePage extends React.Component {
   static navigationOptions = {
@@ -8,9 +8,8 @@ export default class FavoritePage extends React.Component {
     header: null,
   }
   componentDidMount() {
-    console.log('FavoritePage componentDidMount', this.props)
     const { navigation } = this.props
-    NavigationUtil.setNavigation(navigation, BOTTOM_TAB_NAVIGATION)
+    navigationUtil.setNavigation(navigation, BOTTOM_TAB_NAVIGATION)
   }
   render() {
     const { navigation } = this.props
@@ -22,24 +21,21 @@ export default class FavoritePage extends React.Component {
           <Text
             style={styles.text}
             onPress={() => {
-              // NavigationUtil.goNavigationPage(ROOT_NAVIGATION, 'DetailPage')
-              NavigationUtil.goPage({ navigation: navigation }, 'DetailPage')
+              // navigationUtil.goNavigationPage(ROOT_NAVIGATION, 'DetailPage')
+              navigationUtil.goPage({ navigation: navigation }, 'DetailPage')
             }}>跳转到详情页</Text>
           <Text
             style={styles.text}
             onPress={() => {
-              // console.log('NavigationUtil', NavigationUtil, NavigationUtil[TOP_TAB_NAVIGATION])
-              console.log('global',global)
-              NavigationUtil.goNavigationPage(BOTTOM_TAB_NAVIGATION, 'PopularPage')
-              // global.navigatorRef.dispatch(
-              //   NavigationActions.navigate({ routeName: 'tab2' })
-              // );
-              // NavigationUtil.goNavigationPage(TOP_TAB_NAVIGATION, 'tab6')
+              navigationUtil.navigationToPage(BOTTOM_TAB_NAVIGATION, { routeName: 'PopularPage' })
+              setTimeout(() => {
+                navigationUtil.navigatorToPage(HOME_TOP_TAB_NAVIGATOR, { routeName: 'tab2' })
+              }, 200)
             }}>跳转到topTab2页</Text>
           <Text
             style={styles.text}
             onPress={() => {
-              NavigationUtil.goPage({ navigation: navigation }, 'TrendingPage')
+              navigationUtil.goPage({ navigation: navigation }, 'TrendingPage')
             }}>跳转到BottomTab trending页</Text>
         </View>
       </SafeAreaView>

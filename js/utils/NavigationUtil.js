@@ -7,7 +7,7 @@ export const TOP_TAB_NAVIGATION = 'topTabNavigation'
 
 export const ROOT_NAVIGATOR = 'rootNavigator'
 export const BOTTOM_TAB_NAVIGATOR= 'bottomTabNavigator'
-export const TOP_TAB_NAVIGATOR = 'topTabNavigator'
+export const HOME_TOP_TAB_NAVIGATOR = 'HomeTopTabNavigator'
 
 class NavigationUtil {
   constructor() {}
@@ -21,8 +21,8 @@ class NavigationUtil {
       case BOTTOM_TAB_NAVIGATION:
         this.navigators[BOTTOM_TAB_NAVIGATION] = navigator
         break
-      case TOP_TAB_NAVIGATION:
-        this.navigators[TOP_TAB_NAVIGATION] = navigator
+      case HOME_TOP_TAB_NAVIGATOR:
+        this.navigators[HOME_TOP_TAB_NAVIGATOR] = navigator
         break
       default:
         this.navigators[navigatorName] = navigator
@@ -52,7 +52,7 @@ class NavigationUtil {
         this.navigations[TOP_TAB_NAVIGATION] = navigation
         break
       default:
-        this.navigations[ROOT_NAVIGATION] = navigation
+        this.navigations[type] = navigation
     }
   }
   resetHomePage(params = {}, routeName) {
@@ -78,16 +78,15 @@ class NavigationUtil {
   /**
    * 跳转指定导航器某个路由
    * @param {*} navigationName 指定导航器
-   * @param {*} routeName 路由名
+   * @param {*} {routeName} 路由名
    */
-  goNavigationPage(navigationName, routeName) {
+  navigationToPage(navigationName, {routeName, params}) {
     const navigation = this.navigations[navigationName]
     if (!navigation) {
       console.error('NavigationUtil navigationName can not be null!')
       return
-    } else {
-      navigation.navigate(routeName)
-    }
+    } 
+    navigation.navigate(routeName, params)
   }
 }
 
