@@ -22,10 +22,10 @@ class TabContent extends React.Component {
   getData = () => {
     console.log('this.state', this.state)
     const {query} = this.state
-    fetchData.trending.search({query}).then(res => {
+    fetchData.trending.cache({query}).then(res => {
       console.log('res', res)
       this.setState({
-        dataList: popular_data.items,
+        dataList: (res && res.items) || [],
       }, () =>  {
         
       })
@@ -43,16 +43,7 @@ class TabContent extends React.Component {
     )
   }
   _genIndicator() {
-    return <View style={styles.indicatorContainer}>
-      <ActivityIndicator
-        style={styles.indicator}
-        size='large'
-        tintColor='red'
-        color='red'
-        animating={true}
-      />
-      <Text>正在加载更多</Text>
-    </View>
+    return null
   }
   _onRefresh = () => {
     console.log('_onRefresh')
@@ -64,7 +55,7 @@ class TabContent extends React.Component {
     const { item, counter } = this.props
     return (
       <View style={styles.container}>
-        <Text>{typeof item === 'string' ? item : JSON.stringify(item)}</Text>
+        {/* <Text>{typeof item === 'string' ? item : JSON.stringify(item)}</Text> */}
         <FlatList
           style={styles.flatWrap}
           data={this.state.dataList}

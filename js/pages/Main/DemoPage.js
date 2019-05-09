@@ -60,6 +60,11 @@ export default class TrendingPgae extends React.Component {
     // 清除缓存
     fetchData.trending.removeData({query: {lang:'java', since:'weekly'}})
   }
+  handleRemoveAllCache = () => {
+    NetCache.clear(() => {
+      console.log('清除所有存储成功')
+    })
+  }
   handleGetTrendingData = () => {
     // const url = 'https://github.com/trending'
     // console.log('document', window.document)
@@ -94,6 +99,9 @@ export default class TrendingPgae extends React.Component {
         }}></Button>
         <Button title='缓存 清除' onPress={() => {
           this.handleRemoveCache()
+        }}></Button>
+        <Button title='所有缓存 清除' onPress={() => {
+          this.handleRemoveAllCache()
         }}></Button>
         <Button title='获取api' onPress={() => {
           console.log(apiManage.getApi({ keyInfo: 'popular.search' }))

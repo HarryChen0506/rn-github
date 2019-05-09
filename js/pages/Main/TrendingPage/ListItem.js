@@ -18,21 +18,25 @@ export default class ListItem extends React.PureComponent {
       >
         <View style={styles.container}>
           <Text style={styles.title}>
-            {item.full_name}
+            {item.repo}
           </Text>
           <Text style={styles.description}>
-            {item.description}
+            {item.desc}
           </Text>
           <View style={styles.row}>
             <View style={styles.row}>
               <Text style={styles.text}>Author:</Text>
-              <Image style={{ height: 22, width: 22 }}
-                source={{ uri: item.owner.avatar_url }}
-              />
+              {
+                (item.avatars || []).map(v => {
+                  return <Image style={{ height: 22, width: 22, marginRight: 5 }} key={v}
+                    source={{ uri: v }}
+                  />
+                })
+              }
             </View>
             <View style={styles.row}>
               <Text style={styles.text}>Star:</Text>
-              <Text>{item.stargazers_count}</Text>
+              <Text>{item.stars}</Text>
             </View>
           </View>
         </View>

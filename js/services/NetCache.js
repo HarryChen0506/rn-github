@@ -13,12 +13,21 @@ class NetCache {
     maxAge: 1000 * 60 * 60, // 默认过期时间为1h
     // maxAge: 1000 * 60,
   }
+  static clear = (callback) => {
+    AsyncStorage.clear(callback)
+  }
   constructor(options = {}) {
     options = { ...NetCache.defaultOptions, ...options }
     const { mode, maxAge } = options
     this.mode = mode
     this.maxAge = maxAge
     this.timestamp_key = 'TIMESTAMP' // 时间戳
+    this.request = null
+  }
+  // 设置请求函数
+  setRequest(func) {
+    this.request = func
+    return this
   }
   getData(url) {
     if (this.mode === 'LOCAL_FIRST') {
@@ -91,9 +100,12 @@ class NetCache {
   }
   // 获取网络数据
   async _getNetData(url) {
-    return request({
-      url
-    })
+    if (!this.request) {
+      return request({
+        url
+      })
+    }
+    return this.request({url})
   }
   // 校验本地是否过期
   _checkTimestampValid(res = {}) {

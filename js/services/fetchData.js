@@ -31,6 +31,23 @@ class FetchData {
       const url = util.formatUrl(api, {query})
       return createNetCache({mode: 'LOCAL_FIRST'}).getData(url)
     },
+    customCache({query}) {
+      const {lang, since} = query
+      let api, options={
+        query: {since}
+      }
+      if (lang) {
+        api = 'https://github.com/trending/:lang'
+        options.params = {lang}
+      } else {
+        api = 'https://github.com/trending'
+      }
+      const url = util.formatUrl(api, options)
+      return createNetCache({mode: 'LOCAL_FIRST'}).setRequest((options) => {
+        // console.log('options', options)
+        return new GitHubTrending().fetchTrending(options.url)
+      }).getData(url)
+    },
     removeData({query}) {
       const api = apiManage.getApi({hostName: 'herokuapp', keyInfo:'trending.search'})
       const url = util.formatUrl(api, {query})
