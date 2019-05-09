@@ -5,6 +5,7 @@
       "alias": {
         "@tests": "./__tests__",
         "@pages": "./js/pages",
+        "@components": "./js/components",
         "@utils": "./js/utils",
         "@navigators": "./js/navigators",
         "@model": "./js/model",

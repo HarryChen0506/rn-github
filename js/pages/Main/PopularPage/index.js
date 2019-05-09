@@ -4,12 +4,13 @@
 
 import React from "react"
 import { StyleSheet, View, Text } from "react-native"
-import HomeTopTabNavigator from './HomeTopTabNavigator'
-import {
-  createAppContainer,
-} from "react-navigation"
+import createTopTabNavigator from '@components/createTopTabNavigator'
+import { createAppContainer } from "react-navigation"
 import navigationUtil, { HOME_TOP_TAB_NAVIGATOR } from '@utils/NavigationUtil'
+import TabContent from './TabContent'
 
+const tabNames = ['Java', 'Android', 'Ios', 'React', 'React Native', 'PHP', 'Python']
+const HomeTopTabNavigator = createTopTabNavigator(tabNames, TabContent)
 const HomeTopTab = createAppContainer(HomeTopTabNavigator)
 export default class PopularPage extends React.Component {
   static navigationOptions = {
@@ -33,8 +34,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 30,
-    // justifyContent: 'center',
-    // alignItems: 'center',
     backgroundColor: 'red',
   },
 })
