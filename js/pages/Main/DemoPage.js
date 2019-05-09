@@ -5,7 +5,8 @@ import { request } from '@utils/http'
 import NetCache from '@services/NetCache'
 import apiManage from '@services/apiManage'
 import util from '@utils/util'
-import GitHubTrending from 'GitHubTrending'
+// import GitHubTrending from 'GitHubTrending'
+import fetchData from '@services/fetchData'
 
 export default class TrendingPgae extends React.Component {
   static navigationOptions = {
@@ -56,16 +57,26 @@ export default class TrendingPgae extends React.Component {
     console.log('handleRemoveCache')
     const url = 'https://api.github.com/search/repositories?q=java'
     this.netCache.removeData(url)
+    // 清除缓存
+    fetchData.trending.removeData({query: {lang:'java', since:'weekly'}})
   }
   handleGetTrendingData = () => {
-    const url = 'https://github.com/trending'
-    console.log('document', window.document)
-    new GitHubTrending().fetchTrending(url)
-      .then((data) => {
-        console.log('trending daga', data)
-      }).catch((error) => {
-        console.log(error)
-      });
+    // const url = 'https://github.com/trending'
+    // console.log('document', window.document)
+    // new GitHubTrending().fetchTrending(url)
+    //   .then((data) => {
+    //     console.log('trending daga', data)
+    //   }).catch((error) => {
+    //     console.log(error)
+    //   });
+  }
+  handleGetThirdTrendingData = () => {
+    // fetchData.trending.search({query: {lang:'java', since:'weekly'}}).then(res => {
+    //   console.log('res', res)
+    // })
+    fetchData.trending.cache({query: {lang:'java', since:'weekly'}}).then(res => {
+      console.log('res', res)
+    })
   }
   render() {
     const { navigation } = this.props
@@ -88,6 +99,7 @@ export default class TrendingPgae extends React.Component {
           console.log(apiManage.getApi({ keyInfo: 'popular.search' }))
         }}></Button>
         <Button title='获取trending数据' onPress={this.handleGetTrendingData}></Button>
+        <Button title='获取第三方trending数据' onPress={this.handleGetThirdTrendingData}></Button>
       </View>
     )
   }

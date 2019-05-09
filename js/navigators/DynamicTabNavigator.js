@@ -7,8 +7,10 @@ import {
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Entypo from 'react-native-vector-icons/Entypo'
+import AntDesign from 'react-native-vector-icons/AntDesign'
 import PopularPage from '@pages/Main/PopularPage'
 import TrendingPage from '@pages/Main/TrendingPage'
+import DemoPage from '@pages/Main/DemoPage'
 import FavoritePage from '@pages/Main/FavoritePage'
 import MyPage from '@pages/Main/MyPage'
 // import HomeTopTabNavigator from '@pages/Main/PopularPage/HomeTopTabNavigator'
@@ -35,6 +37,19 @@ const DynamicTabNavigator = createBottomTabNavigator(
         tabBarIcon: ({ tintColor, focused }) => (
           <Ionicons
             name={'md-trending-up'}
+            size={26}
+            style={{ color: tintColor }}
+          />
+        ),
+      }
+    },
+    DemoPage: {
+      screen: DemoPage,
+      navigationOptions: {
+        tabBarLabel: "demo",
+        tabBarIcon: ({ tintColor, focused }) => (
+          <AntDesign
+            name={'android1'}
             size={26}
             style={{ color: tintColor }}
           />

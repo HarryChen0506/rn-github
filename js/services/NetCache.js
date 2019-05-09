@@ -118,4 +118,16 @@ class NetCache {
   }
 }
 
+export const netFirstCache = new NetCache({
+  mode: 'NET_FIRST'
+})
+
+export const localFirstCache = new NetCache({
+  mode: 'LOCAL_FIRST'
+})
+
+export const createNetCache = function (options = {}) {
+  return new NetCache(options)
+}
+
 export default NetCache

@@ -1,12 +1,35 @@
 import React from "react"
 import { StyleSheet, View, Text, FlatList, ActivityIndicator } from "react-native"
-import { connect } from "react-redux"
-import actions from "@model/actions"
+import fetchData from '@services/fetchData'
 import popular_data from '@mock/popular'
 import ListItem from './ListItem'
 
 class TabContent extends React.Component {
+  state = {
+    dataList: [],
+    query: {
+      lang: this.props.item && this.props.item.type,
+      since:'weekly'
+    }
+  }
   componentDidMount() {
+    console.log('TabContent componentDidMount', this.props)
+    this.initialPage()
+  }
+  initialPage = () => {
+    this.getData()
+  }
+  getData = () => {
+    console.log('this.state', this.state)
+    const {query} = this.state
+    fetchData.trending.search({query}).then(res => {
+      console.log('res', res)
+      this.setState({
+        dataList: popular_data.items,
+      }, () =>  {
+        
+      })
+    })
   }
   _onPressItem = (item) => {
     console.log('_onPressButton item', item)
@@ -44,7 +67,7 @@ class TabContent extends React.Component {
         <Text>{typeof item === 'string' ? item : JSON.stringify(item)}</Text>
         <FlatList
           style={styles.flatWrap}
-          data={popular_data.items}
+          data={this.state.dataList}
           renderItem={this._renderItem}
           keyExtractor={(item, index) => `${item.id}_${index}`}
           onRefresh={this._onRefresh}
@@ -57,13 +80,8 @@ class TabContent extends React.Component {
     )
   }
 }
-const mapStateToProps = state => ({
-  counter: state.counter
-})
-const mapDispatchToProps = dispatch => ({
-  
-})
-export default connect(mapStateToProps, mapDispatchToProps)(TabContent)
+
+export default TabContent
 
 const styles = StyleSheet.create({
   container: {

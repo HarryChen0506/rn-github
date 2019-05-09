@@ -4,10 +4,11 @@ import { createMaterialTopTabNavigator } from "react-navigation"
 const createRouteConfigs = (tabList = [], TabContent) => {
   const config = {}
   tabList.forEach((item, index) => {
+    const title = typeof item === 'string' ? item : item.showName
     config[`tab${index}`] = {
       screen: (props) => <TabContent {...props} item={item} />,
       navigationOptions: {
-        title: item,
+        title: title,
       }
     }
   })
