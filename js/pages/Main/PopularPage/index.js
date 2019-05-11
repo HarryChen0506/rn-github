@@ -9,8 +9,37 @@ import { createAppContainer } from "react-navigation"
 import navigationUtil, { HOME_TOP_TAB_NAVIGATOR } from '@utils/NavigationUtil'
 import TabContent from './TabContent'
 
-const tabNames = ['Java', 'Android', 'Ios', 'React', 'React Native', 'PHP', 'Python']
-const HomeTopTabNavigator = createTopTabNavigator(tabNames, TabContent)
+const tabList = [
+  {
+    showName: 'Java',
+    type: 'java',
+  },
+  {
+    showName: 'Android',
+    type: 'android',
+  },
+  {
+    showName: 'Ios',
+    type: 'ios',
+  },
+  {
+    showName: 'React',
+    type: 'react',
+  },
+  {
+    showName: 'React Native',
+    type: 'react native',
+  },
+  {
+    showName: 'PHP',
+    type: 'php',
+  },
+  {
+    showName: 'Python',
+    type: 'python',
+  },
+]
+const HomeTopTabNavigator = createTopTabNavigator(tabList, TabContent)
 const HomeTopTab = createAppContainer(HomeTopTabNavigator)
 export default class PopularPage extends React.Component {
   static navigationOptions = {

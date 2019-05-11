@@ -1,7 +1,6 @@
 import React from "react"
 import { StyleSheet, View, Text, FlatList, ActivityIndicator } from "react-native"
 import fetchData from '@services/fetchData'
-import popular_data from '@mock/popular'
 import ListItem from './ListItem'
 
 class TabContent extends React.Component {

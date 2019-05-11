@@ -9,7 +9,6 @@ import { createAppContainer } from "react-navigation"
 import navigationUtil, { HOME_TOP_TAB_NAVIGATOR } from '@utils/NavigationUtil'
 import TabContent from './TabContent'
 
-const tabNames = ['Java', 'Android', 'Ios', 'React', 'React Native', 'PHP', 'Python']
 const tabList = [
   {
     showName: 'Unknown',

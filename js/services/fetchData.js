@@ -18,7 +18,7 @@ class FetchData {
         api = 'https://github.com/trending'
       }
       const url = util.formatUrl(api, options)
-      console.log('url', url)
+      // console.log('url', url)
       return new GitHubTrending().fetchTrending(url)
       // return request({
       //   method: 'GET',
@@ -29,7 +29,7 @@ class FetchData {
     cache({query}) {
       const api = apiManage.getApi({hostName: 'herokuapp', keyInfo:'trending.search'})
       const url = util.formatUrl(api, {query})
-      return createNetCache({mode: 'LOCAL_FIRST'}).getData(url)
+      return createNetCache({mode: 'LOCAL_FIRST', maxAge: 1000 * 60 * 60 * 4}).getData(url)
     },
     customCache({query}) {
       const {lang, since} = query
