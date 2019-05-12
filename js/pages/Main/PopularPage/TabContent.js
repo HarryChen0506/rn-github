@@ -1,6 +1,7 @@
 import React from "react"
 import { StyleSheet, View, Text, FlatList, ActivityIndicator } from "react-native"
 import { connect } from "react-redux"
+import { withNavigationFocus } from 'react-navigation';
 import { popularActions } from "@model/actions"
 import ListItem from './ListItem'
 
@@ -14,26 +15,30 @@ class TabContent extends React.Component {
       sort: 'stars',
       order: 'desc',
     }
+    this.didRefresh = false
   }
   componentDidMount() {
-    // console.log('TabContent componentDidMount', this.props)
-    this.getRefreshData()
+    const {isFocused} = this.props
+    if (isFocused) {
+      this.getRefreshData()
+      this.didRefresh = true
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (!this.didRefresh && nextProps.isFocused) {
+      this.getRefreshData()
+      this.didRefresh = true
+    }
   }
   getRefreshData = () => {
     // console.log('getRefreshData', this.type)
     const { pageNum, pageSize } = this.query
-    if (this.type !== 'javascript') {
-      return
-    }
     this.props.onPopularRefresh({ storeName: this.type, pageNum, pageSize })
   }
   getLoadmoreData = () => {
-    // console.log('getRefreshData', this.type)
+    // console.log('getLoadmoreData', this.type)
     const store = this.getStore()
     if (store.hasMore) {
-      // if (this.type !== 'javascript') {
-      //   return
-      // }
       this.props.onPopularLoadmore({ storeName: this.type, pageNum: store.pageNum + 1, pageSize: store.pageSize })
     }
   }
@@ -127,7 +132,9 @@ const mapDispatchToProps = dispatch => ({
   onPopularRefresh: ({ storeName, pageNum, pageSize }) => dispatch(popularActions.onPopularRefresh({ storeName, pageNum, pageSize })),
   onPopularLoadmore: ({ storeName, pageNum, pageSize }) => dispatch(popularActions.onPopularLoadmore({ storeName, pageNum, pageSize }))
 })
-export default connect(mapStateToProps, mapDispatchToProps)(TabContent)
+// export default connect(mapStateToProps, mapDispatchToProps)(TabContent)
+export default connect(mapStateToProps, mapDispatchToProps)(withNavigationFocus(TabContent))
+
 
 const styles = StyleSheet.create({
   container: {

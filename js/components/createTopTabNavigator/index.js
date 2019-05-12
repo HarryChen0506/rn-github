@@ -6,7 +6,7 @@ const createRouteConfigs = (tabList = [], TabContent) => {
   tabList.forEach((item, index) => {
     const title = typeof item === 'string' ? item : item.showName
     config[`tab${index}`] = {
-      screen: (props) => <TabContent {...props} item={item} />,
+      screen: (props) => <TabContent {...props} item={item} tabIndex={index} />,
       navigationOptions: {
         title: title,
       }
