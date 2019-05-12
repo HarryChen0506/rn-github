@@ -1,8 +1,9 @@
 import {onCounterIncrease,  onCounterDecrease} from './counter'
-import {onPopularRefresh} from './popular'
+import {onPopularRefresh, onPopularLoadmore} from './popular'
 
 export const popularActions = {
-  onPopularRefresh
+  onPopularRefresh,
+  onPopularLoadmore
 }
 
 export default {

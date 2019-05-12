@@ -5,6 +5,15 @@ import util from '@utils/util'
 import { createNetCache } from './NetCache'
 import GitHubTrending from 'GitHubTrending'
 class FetchData {
+  popular = {
+    search({query}) {
+      return request({
+        method: 'GET',
+        url: apiManage.getApi({hostName: 'github', keyInfo:'popular.search'}),
+        data: query
+      })
+    },
+  }
   trending = {
     search({query}) {
       const {lang, since} = query

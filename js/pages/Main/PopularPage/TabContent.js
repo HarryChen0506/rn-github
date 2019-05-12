@@ -1,22 +1,38 @@
 import React from "react"
 import { StyleSheet, View, Text, FlatList, ActivityIndicator } from "react-native"
 import { connect } from "react-redux"
-import actions, {popularActions} from "@model/actions"
-import popular_data from '@mock/popular'
+import { popularActions } from "@model/actions"
 import ListItem from './ListItem'
 
 class TabContent extends React.Component {
   constructor(props) {
     super(props)
     this.type = props.item && props.item.type
+    this.query = {
+      pageNum: 1,
+      pageSize: 10,
+      sort: 'stars',
+      order: 'desc',
+    }
   }
   componentDidMount() {
+    // console.log('TabContent componentDidMount', this.props)
     this.getRefreshData()
   }
   getRefreshData = () => {
-    console.log('getRefreshData', this.type)
+    // console.log('getRefreshData', this.type)
+    const { pageNum, pageSize } = this.query
     if (this.type === 'java') {
-      this.props.onPopularRefresh({storeName: this.type})
+      this.props.onPopularRefresh({ storeName: this.type, pageNum, pageSize })
+    }
+  }
+  getLoadmoreData = () => {
+    // console.log('getRefreshData', this.type)
+    const store = this.getStore()
+    if (store.hasMore) {
+      if (this.type === 'java') {
+        this.props.onPopularLoadmore({ storeName: this.type, pageNum: store.pageNum + 1, pageSize: store.pageSize })
+      }
     }
   }
   calcItems = () => {
@@ -26,18 +42,34 @@ class TabContent extends React.Component {
     }
     return []
   }
+  getStore() {
+    const { popular } = this.props
+    const {pageNum, pageSize} = this.query
+    let store = popular[this.type]
+    if (!store) {
+      store = {
+        items: [],
+        loadmore_status: 'loading',
+        pageNum: pageNum,
+        pageSize: pageSize,
+      }
+    }
+    return store
+  }
   _onPressItem = (item) => {
     console.log('_onPressButton item', item)
   }
-  _renderItem = ({item}) => {
+  _renderItem = ({ item }) => {
     return (
-      <ListItem 
-        item={item} 
+      <ListItem
+        item={item}
         onPressItem={this._onPressItem}
       />
     )
   }
-  _genIndicator() {
+  _genIndicator = () => {
+    const { popular = {} } = this.props
+    const hasMore = popular[this.type] && popular[this.type].hasMore
     const loadMore = <View style={styles.indicatorContainer}>
       <ActivityIndicator
         style={styles.indicator}
@@ -48,15 +80,15 @@ class TabContent extends React.Component {
       />
       <Text>正在加载更多</Text>
     </View>
-
-    return null
+    return hasMore ? loadMore : null
   }
   _onRefresh = () => {
-    console.log('_onRefresh')
+    // console.log('_onRefresh')
     this.getRefreshData()
   }
   _onEndReached = () => {
-    console.log('_onEndReached')
+    // console.log('_onEndReached')
+    this.getLoadmoreData()
   }
   _calcRefreshingStatus = () => {
     const { popular = {} } = this.props
@@ -70,7 +102,7 @@ class TabContent extends React.Component {
     const items = this.calcItems()
     return (
       <View style={styles.container}>
-        <Text>{typeof item === 'string' ? item : JSON.stringify(item)}</Text>
+        {/* <Text>{typeof item === 'string' ? item : JSON.stringify(item)}</Text> */}
         <FlatList
           style={styles.flatWrap}
           data={items}
@@ -87,11 +119,11 @@ class TabContent extends React.Component {
   }
 }
 const mapStateToProps = state => ({
-  counter: state.counter,
   popular: state.popular
 })
 const mapDispatchToProps = dispatch => ({
-  onPopularRefresh: ({storeName}) => dispatch(popularActions.onPopularRefresh({storeName}))
+  onPopularRefresh: ({ storeName, pageNum, pageSize }) => dispatch(popularActions.onPopularRefresh({ storeName, pageNum, pageSize })),
+  onPopularLoadmore: ({ storeName, pageNum, pageSize }) => dispatch(popularActions.onPopularLoadmore({ storeName, pageNum, pageSize }))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(TabContent)
 

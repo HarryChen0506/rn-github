@@ -12,14 +12,12 @@ class TabContent extends React.Component {
     }
   }
   componentDidMount() {
-    console.log('TabContent componentDidMount', this.props)
     this.initialPage()
   }
   initialPage = () => {
     this.getData()
   }
   getData = () => {
-    console.log('this.state', this.state)
     const {query} = this.state
     fetchData.trending.cache({query}).then(res => {
       console.log('res', res)
