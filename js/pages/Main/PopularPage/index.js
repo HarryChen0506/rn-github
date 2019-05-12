@@ -11,16 +11,8 @@ import TabContent from './TabContent'
 
 const tabList = [
   {
-    showName: 'Java',
-    type: 'java',
-  },
-  {
-    showName: 'Android',
-    type: 'android',
-  },
-  {
-    showName: 'Ios',
-    type: 'ios',
+    showName: 'Javascript',
+    type: 'javascript',
   },
   {
     showName: 'React',
@@ -30,14 +22,14 @@ const tabList = [
     showName: 'React Native',
     type: 'react native',
   },
-  {
-    showName: 'PHP',
-    type: 'php',
-  },
-  {
-    showName: 'Python',
-    type: 'python',
-  },
+  // {
+  //   showName: 'Android',
+  //   type: 'android',
+  // },
+  // {
+  //   showName: 'Ios',
+  //   type: 'ios',
+  // },
 ]
 const HomeTopTabNavigator = createTopTabNavigator(tabList, TabContent)
 const HomeTopTab = createAppContainer(HomeTopTabNavigator)

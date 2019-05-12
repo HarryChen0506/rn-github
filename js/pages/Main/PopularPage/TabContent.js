@@ -22,17 +22,19 @@ class TabContent extends React.Component {
   getRefreshData = () => {
     // console.log('getRefreshData', this.type)
     const { pageNum, pageSize } = this.query
-    if (this.type === 'java') {
-      this.props.onPopularRefresh({ storeName: this.type, pageNum, pageSize })
+    if (this.type !== 'javascript') {
+      return
     }
+    this.props.onPopularRefresh({ storeName: this.type, pageNum, pageSize })
   }
   getLoadmoreData = () => {
     // console.log('getRefreshData', this.type)
     const store = this.getStore()
     if (store.hasMore) {
-      if (this.type === 'java') {
-        this.props.onPopularLoadmore({ storeName: this.type, pageNum: store.pageNum + 1, pageSize: store.pageSize })
-      }
+      // if (this.type !== 'javascript') {
+      //   return
+      // }
+      this.props.onPopularLoadmore({ storeName: this.type, pageNum: store.pageNum + 1, pageSize: store.pageSize })
     }
   }
   calcItems = () => {
@@ -52,6 +54,7 @@ class TabContent extends React.Component {
         loadmore_status: 'loading',
         pageNum: pageNum,
         pageSize: pageSize,
+        hasMore: false,
       }
     }
     return store
@@ -68,8 +71,7 @@ class TabContent extends React.Component {
     )
   }
   _genIndicator = () => {
-    const { popular = {} } = this.props
-    const hasMore = popular[this.type] && popular[this.type].hasMore
+    const store = this.getStore()
     const loadMore = <View style={styles.indicatorContainer}>
       <ActivityIndicator
         style={styles.indicator}
@@ -80,7 +82,7 @@ class TabContent extends React.Component {
       />
       <Text>正在加载更多</Text>
     </View>
-    return hasMore ? loadMore : null
+    return store.hasMore ? loadMore : null
   }
   _onRefresh = () => {
     // console.log('_onRefresh')
